@@ -7,8 +7,9 @@
     
     <script src="https://cdn.tailwindcss.com"></script>
     
-    <script src="https://unpkg.com/react@18/umd/react.development.js" crossorigin></script>
-    <script src="https://unpkg.com/react-dom@18/umd/react-dom.development.js" crossorigin></script>
+    <!-- React em modo produção (mais leve) -->
+    <script src="https://unpkg.com/react@18/umd/react.production.min.js" crossorigin></script>
+    <script src="https://unpkg.com/react-dom@18/umd/react-dom.production.min.js" crossorigin></script>
     
     <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
 
@@ -20,9 +21,7 @@
             background: rgba(255, 255, 255, 0.8);
             backdrop-filter: blur(12px);
         }
-        .hidden-input {
-            display: none;
-        }
+        .hidden-input { display: none; }
     </style>
 </head>
 <body class="bg-slate-50 text-slate-900">
@@ -30,136 +29,80 @@
     <div id="root"></div>
 
     <script type="text/babel">
-        // --- CONFIGURAÇÃO ---
-        const DEFAULT_LOGO_URL = ""; 
-        const STORAGE_KEY_LOGO = "nexus_corporate_custom_logo_v2"; // Mudei a chave para evitar conflito com a logo antiga quadrada
+        const DEFAULT_LOGO_URL = "";
+        const STORAGE_KEY_LOGO = "nexus_corporate_custom_logo_v2";
 
-        // --- ÍCONES SVG ---
+        // Ícones SVG
         const Icons = {
             LayoutGrid: ({ size = 24, className }) => (
-                <svg width={size} height={size} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className={className}><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/></svg>
+                <svg width={size} height={size} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className={className}>
+                    <rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/>
+                    <rect x="14" y="14" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/>
+                </svg>
             ),
             ArrowRight: ({ size = 24, className }) => (
-                <svg width={size} height={size} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className={className}><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+                <svg width={size} height={size} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className={className}>
+                    <line x1="5" y1="12" x2="19" y2="12"/>
+                    <polyline points="12 5 19 12 12 19"/>
+                </svg>
             ),
             Sparkles: ({ size = 24, className }) => (
-                <svg width={size} height={size} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className={className}><path d="m12 3-1.912 5.813a2 2 0 0 1-1.275 1.275L3 12l5.813 1.912a2 2 0 0 1 1.275 1.275L12 21l1.912-5.813a2 2 0 0 1 1.275-1.275L21 12l-5.813-1.912a2 2 0 0 1-1.275-1.275L12 3Z"/></svg>
+                <svg width={size} height={size} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className={className}>
+                    <path d="m12 3-1.912 5.813a2 2 0 0 1-1.275 1.275L3 12l5.813 1.912a2 2 0 0 1 1.275 1.275L12 21l1.912-5.813a2 2 0 0 1 1.275-1.275L21 12l-5.813-1.912a2 2 0 0 1-1.275-1.275L12 3Z"/>
+                </svg>
             ),
             ExternalLink: ({ size = 24, className }) => (
-                <svg width={size} height={size} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className={className}><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
+                <svg width={size} height={size} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className={className}>
+                    <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/>
+                    <polyline points="15 3 21 3 21 9"/>
+                    <line x1="10" y1="14" x2="21" y2="3"/>
+                </svg>
             ),
             Upload: ({ size = 16, className }) => (
-                <svg width={size} height={size} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className={className}><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="17 8 12 3 7 8"/><line x1="12" y1="3" x2="12" y2="15"/></svg>
+                <svg width={size} height={size} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className={className}>
+                    <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/>
+                    <polyline points="17 8 12 3 7 8"/>
+                    <line x1="12" y1="3" x2="12" y2="15"/>
+                </svg>
             )
         };
 
         const { useState, useEffect } = React;
 
-        // --- DADOS DA APLICAÇÃO ---
         const applications = [
-            {
-                id: 1,
-                title: "Gestão de Faturas",
-                url: "https://titulos.vercel.app/",
-                image: "https://images.unsplash.com/photo-1554224155-6726b3ff858f?auto=format&fit=crop&q=80&w=800",
-                gradient: "from-cyan-400 to-blue-600",
-                shadowColor: "shadow-cyan-500/40",
-                category: "Cobrança",
-                insight: "Controle receíveis e reduza a inadimplência com ações inteligentes."
-            },
-            {
-                id: 2,
-                title: "Gestão de Patrimônio",
-                url: "https://patrimonio-ten.vercel.app/",
-                image: "https://images.unsplash.com/photo-1497366216548-37526070297c?auto=format&fit=crop&q=80&w=800",
-                gradient: "from-emerald-400 to-green-600",
-                shadowColor: "shadow-emerald-500/40",
-                category: "Ativos",
-                insight: "Monitore a localização e valorize o capital físico da sua empresa."
-            },
-            {
-                id: 3,
-                title: "Fluxo de Caixa",
-                url: "https://fluxo-de-caixa-sooty.vercel.app/",
-                image: "https://images.unsplash.com/photo-1579621970563-ebec7560ff3e?auto=format&fit=crop&q=80&w=800",
-                gradient: "from-purple-400 to-violet-600",
-                shadowColor: "shadow-purple-500/40",
-                category: "Financeiro",
-                insight: "Visualize entradas e saídas de capital para tomar decisões precisas."
-            },
-            {
-                id: 4,
-                title: "Gestão de Despesas",
-                url: "https://despesas-rho-nine.vercel.app/",
-                image: "https://images.unsplash.com/photo-1517245386807-bb43f82c33c4?auto=format&fit=crop&q=80&w=2940&h=1960&crop=entropy&cs=tinysrgb",
-                gradient: "from-rose-400 to-pink-600",
-                shadowColor: "shadow-rose-500/40",
-                category: "Custos",
-                insight: "Corte gastos desnecessários e identifique gargalos no fluxo de caixa."
-            },
-            {
-                id: 5,
-                title: "Gestão de Comissões",
-                url: "https://comissoes-one.vercel.app/",
-                image: "https://images.unsplash.com/photo-1521737604893-d14cc237f11d?auto=format&fit=crop&q=80&w=800",
-                gradient: "from-orange-400 to-amber-600",
-                shadowColor: "shadow-orange-500/40",
-                category: "RH & Vendas",
-                insight: "Transparência no pagamento de comissões para motivar sua equipe."
-            },
-            {
-                id: 6,
-                title: "Análise de Lucratividade",
-                url: "https://analiselucratividade.vercel.app/",
-                image: "https://images.unsplash.com/photo-1551288049-bebda4e38f71?auto=format&fit=crop&q=80&w=800",
-                gradient: "from-blue-500 to-indigo-600",
-                shadowColor: "shadow-indigo-500/40",
-                category: "Estratégia",
-                insight: "Descubra quais clientes realmente impulsionam seu negócio e ampliam sua margem de lucro."
-            }
+            { id: 1, title: "Gestão de Faturas", url: "https://titulos.vercel.app/", image: "https://images.unsplash.com/photo-1554224155-6726b3ff858f?auto=format&fit=crop&q=80&w=800", gradient: "from-cyan-400 to-blue-600", shadowColor: "shadow-cyan-500/40", category: "Cobrança", insight: "Controle receíveis e reduza a inadimplência com ações inteligentes." },
+            { id: 2, title: "Gestão de Patrimônio", url: "https://patrimonio-ten.vercel.app/", image: "https://images.unsplash.com/photo-1497366216548-37526070297c?auto=format&fit=crop&q=80&w=800", gradient: "from-emerald-400 to-green-600", shadowColor: "shadow-emerald-500/40", category: "Ativos", insight: "Monitore a localização e valorize o capital físico da sua empresa." },
+            { id: 3, title: "Fluxo de Caixa", url: "https://fluxo-de-caixa-sooty.vercel.app/", image: "https://images.unsplash.com/photo-1579621970563-ebec7560ff3e?auto=format&fit=crop&q=80&w=800", gradient: "from-purple-400 to-violet-600", shadowColor: "shadow-purple-500/40", category: "Financeiro", insight: "Visualize entradas e saídas de capital para tomar decisões precisas." },
+            { id: 4, title: "Gestão de Despesas", url: "https://despesas-rho-nine.vercel.app/", image: "https://images.unsplash.com/photo-1517245386807-bb43f82c33c4?auto=format&fit=crop&q=80&w=2940&h=1960&crop=entropy&cs=tinysrgb", gradient: "from-rose-400 to-pink-600", shadowColor: "shadow-rose-500/40", category: "Custos", insight: "Corte gastos desnecessários e identifique gargalos no fluxo de caixa." },
+            { id: 5, title: "Gestão de Comissões", url: "https://comissoes-one.vercel.app/", image: "https://images.unsplash.com/photo-1521737604893-d14cc237f11d?auto=format&fit=crop&q=80&w=800", gradient: "from-orange-400 to-amber-600", shadowColor: "shadow-orange-500/40", category: "RH & Vendas", insight: "Transparência no pagamento de comissões para motivar sua equipe." },
+            { id: 6, title: "Análise de Lucratividade", url: "https://analiselucratividade.vercel.app/", image: "https://images.unsplash.com/photo-1551288049-bebda4e38f71?auto=format&fit=crop&q=80&w=800", gradient: "from-blue-500 to-indigo-600", shadowColor: "shadow-indigo-500/40", category: "Estratégia", insight: "Descubra quais clientes realmente impulsionam seu negócio e ampliam sua margem de lucro." }
         ];
 
-        // --- COMPONENTES ---
         const AppCard = ({ app }) => {
             const [isHovered, setIsHovered] = useState(false);
 
-            const handleOpenApp = () => {
-                window.open(app.url, '_blank', 'noopener,noreferrer');
-            };
-
             return (
                 <div 
-                    className={`
-                        group relative bg-white rounded-3xl overflow-hidden cursor-pointer
-                        transition-all duration-500 ease-out h-full flex flex-col
-                        hover:-translate-y-2 hover:shadow-2xl ${isHovered ? app.shadowColor : 'shadow-slate-200'}
-                        border border-slate-100
-                    `}
+                    className={`group relative bg-white rounded-3xl overflow-hidden cursor-pointer transition-all duration-500 ease-out h-full flex flex-col hover:-translate-y-2 hover:shadow-2xl ${isHovered ? app.shadowColor : 'shadow-slate-200'} border border-slate-100`}
                     onMouseEnter={() => setIsHovered(true)}
                     onMouseLeave={() => setIsHovered(false)}
-                    onClick={handleOpenApp}
+                    onClick={() => window.open(app.url, '_blank', 'noopener,noreferrer')}
                 >
                     <div className="relative h-48 overflow-hidden">
                         <div className="absolute inset-0 bg-slate-900/10 group-hover:bg-slate-900/0 transition-colors z-10"></div>
                         <img 
                             src={app.image} 
                             alt={app.title} 
+                            loading="lazy"
                             className="w-full h-full object-cover transform group-hover:scale-110 transition-transform duration-700 ease-in-out"
-                            onError={(e) => {
-                                e.target.onerror = null;
-                                e.target.src = "https://via.placeholder.com/800x480?text=Imagem+Nao+Disponivel"; 
-                            }}
+                            onError={(e) => { e.target.onerror = null; e.target.src = "https://via.placeholder.com/800x480?text=Imagem+Nao+Disponivel"; }}
                         />
-                        
-                        <div className={`
-                            absolute top-4 left-4 z-20 px-3 py-1 rounded-full text-xs font-bold text-white uppercase tracking-wide
-                            bg-gradient-to-r ${app.gradient} shadow-lg backdrop-blur-sm
-                        `}>
+                        <div className={`absolute top-4 left-4 z-20 px-3 py-1 rounded-full text-xs font-bold text-white uppercase tracking-wide bg-gradient-to-r ${app.gradient} shadow-lg backdrop-blur-sm`}>
                             {app.category}
                         </div>
                     </div>
 
-                    <div className="p-6 flex flex-col flex-grow relative">
+                    <div className="p-6 flex flex-col flex-grow">
                         <div className="flex justify-between items-start mb-3">
                             <h3 className={`text-xl font-bold text-slate-800 group-hover:text-transparent group-hover:bg-clip-text group-hover:bg-gradient-to-r ${app.gradient} transition-all duration-300`}>
                                 {app.title}
@@ -172,15 +115,7 @@
                         </p>
 
                         <div className="mt-auto pt-4 border-t border-slate-50">
-                            <button 
-                                className={`
-                                    w-full py-3 px-4 rounded-xl text-sm font-bold flex items-center justify-center gap-2
-                                    transition-all duration-300
-                                    ${isHovered 
-                                        ? `bg-gradient-to-r ${app.gradient} text-white shadow-lg transform scale-[1.02]` 
-                                        : 'bg-slate-50 text-slate-600 hover:bg-slate-100'}
-                                `}
-                            >
+                            <button className={`w-full py-3 px-4 rounded-xl text-sm font-bold flex items-center justify-center gap-2 transition-all duration-300 ${isHovered ? `bg-gradient-to-r ${app.gradient} text-white shadow-lg transform scale-[1.02]` : 'bg-slate-50 text-slate-600 hover:bg-slate-100'}`}>
                                 Acessar Sistema
                                 <Icons.ArrowRight size={16} className={`transition-transform duration-300 ${isHovered ? 'translate-x-1' : ''}`} />
                             </button>
@@ -192,79 +127,109 @@
 
         const App = () => {
             const [logo, setLogo] = useState(DEFAULT_LOGO_URL);
+            const [isDragging, setIsDragging] = useState(false);
 
             useEffect(() => {
-                const savedLogo = localStorage.getItem(STORAGE_KEY_LOGO);
-                if (savedLogo) {
-                    setLogo(savedLogo);
+                const saved = localStorage.getItem(STORAGE_KEY_LOGO);
+                if (saved && saved.length < 600 * 1024) { // ~600 KB em Base64 é seguro
+                    setLogo(saved);
+                } else if (saved) {
+                    localStorage.removeItem(STORAGE_KEY_LOGO);
+                    alert("Logo anterior muito pesada foi removida automaticamente para melhorar a velocidade.");
                 }
             }, []);
 
-            const handleLogoUpload = (event) => {
-                const file = event.target.files[0];
-                if (file) {
-                    const reader = new FileReader();
-                    reader.onloadend = () => {
-                        const base64String = reader.result;
-                        try {
-                            localStorage.setItem(STORAGE_KEY_LOGO, base64String);
-                            setLogo(base64String);
-                        } catch (error) {
-                            console.error("Erro ao salvar imagem:", error);
-                            alert("Imagem muito grande para salvar automaticamente. Ela será exibida apenas agora.");
-                            setLogo(base64String);
+            const compressAndResizeImage = (file, callback) => {
+                const reader = new FileReader();
+                reader.onload = (e) => {
+                    const img = new Image();
+                    img.onload = () => {
+                        const MAX_WIDTH = 640;
+                        const MAX_HEIGHT = 320;
+                        let { width, height } = img;
+
+                        if (width > height && width > MAX_WIDTH) {
+                            height = (height * MAX_WIDTH) / width;
+                            width = MAX_WIDTH;
+                        } else if (height > MAX_HEIGHT) {
+                            width = (width * MAX_HEIGHT) / height;
+                            height = MAX_HEIGHT;
                         }
+
+                        const canvas = document.createElement('canvas');
+                        canvas.width = width;
+                        canvas.height = height;
+                        const ctx = canvas.getContext('2d');
+                        ctx.drawImage(img, 0, 0, width, height);
+
+                        const compressed = canvas.toDataURL('image/webp', 0.87);
+                        callback(compressed);
                     };
-                    reader.readAsDataURL(file);
+                    img.src = e.target.result;
+                };
+                reader.readAsDataURL(file);
+            };
+
+            const handleLogoUpload = (file) => {
+                if (!file || !file.type.startsWith('image/')) return;
+
+                if (file.size > 4 * 1024 * 1024) {
+                    alert("Imagem muito grande! Será otimizada automaticamente.");
                 }
+
+                compressAndResizeImage(file, (optimizedBase64) => {
+                    localStorage.setItem(STORAGE_KEY_LOGO, optimizedBase64);
+                    setLogo(optimizedBase64);
+                });
+            };
+
+            const handleDrop = (e) => {
+                e.preventDefault();
+                setIsDragging(false);
+                const file = e.dataTransfer.files[0];
+                handleLogoUpload(file);
             };
 
             return (
                 <div className="min-h-screen bg-slate-50 selection:bg-indigo-100 selection:text-indigo-900 overflow-x-hidden font-sans">
-                    
-                    {/* Background Decorativo Animado */}
                     <div className="fixed inset-0 z-0 overflow-hidden pointer-events-none">
                         <div className="absolute top-0 left-0 w-full h-full bg-[radial-gradient(ellipse_at_top,_var(--tw-gradient-stops))] from-slate-100 via-slate-50 to-slate-50"></div>
-                        <div className="absolute top-[-10%] right-[-5%] w-96 h-96 bg-purple-200/20 rounded-full blur-3xl mix-blend-multiply animate-pulse"></div>
-                        <div className="absolute bottom-[-10%] left-[-5%] w-96 h-96 bg-blue-200/20 rounded-full blur-3xl mix-blend-multiply animate-pulse" style={{animationDelay: '1s'}}></div>
+                        <div className="absolute top-[-10%] right-[-5%] w-96 h-96 bg-purple-200/20 rounded-full blur-3xl mix-blend-multiply"></div>
+                        <div className="absolute bottom-[-10%] left-[-5%] w-96 h-96 bg-blue-200/20 rounded-full blur-3xl mix-blend-multiply"></div>
                     </div>
 
-                    {/* Header Moderno */}
                     <header className="sticky top-0 z-50 glass-effect border-b border-slate-200/60 shadow-sm">
                         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4 flex items-center justify-between">
                             <div className="flex items-center gap-6">
-                                
-                                {/* AJUSTE FEITO:
-                                    A largura do container foi alterada de w-32 (quadrado) para w-80 (retângulo largo).
-                                    Isso cria um formato Wide (aprox 320px x 128px) ideal para logos corporativas.
-                                */}
-                                <div className="relative group shrink-0">
+                                <div 
+                                    className="relative group shrink-0"
+                                    onDragOver={(e) => { e.preventDefault(); setIsDragging(true); }}
+                                    onDragLeave={(e) => { e.preventDefault(); setIsDragging(false); }}
+                                    onDrop={handleDrop}
+                                >
                                     <input 
                                         type="file" 
                                         id="logo-upload" 
-                                        accept="image/png, image/jpeg, image/jpg" 
+                                        accept="image/*" 
                                         className="hidden-input"
-                                        onChange={handleLogoUpload}
+                                        onChange={(e) => handleLogoUpload(e.target.files[0])}
                                     />
                                     <label 
                                         htmlFor="logo-upload"
-                                        className="block w-80 h-32 bg-white rounded-2xl shadow-indigo-100 shadow-xl border-4 border-white cursor-pointer overflow-hidden relative flex items-center justify-center transform hover:scale-[1.01] transition-transform duration-300"
-                                        title="Clique para inserir sua logomarca"
+                                        className={`block w-80 h-32 bg-white rounded-2xl shadow-xl border-4 border-white cursor-pointer overflow-hidden relative flex items-center justify-center transition-all ${isDragging ? 'ring-4 ring-indigo-400 ring-opacity-50' : ''}`}
+                                        title="Arraste uma imagem ou clique para alterar a logomarca"
                                     >
                                         {logo ? (
-                                            <img src={logo} alt="Logo" className="w-full h-full object-cover" />
+                                            <img src={logo} alt="Logo personalizado" className="w-full h-full object-contain p-3" loading="lazy" />
                                         ) : (
-                                            // Se não tiver logo, mostra um placeholder com gradiente
                                             <div className="w-full h-full bg-gradient-to-br from-indigo-600 to-violet-600 flex items-center justify-center">
                                                 <Icons.LayoutGrid size={48} className="text-white opacity-80" />
                                             </div>
                                         )}
-                                        
-                                        {/* Overlay de Upload */}
                                         <div className="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center">
                                             <div className="flex flex-col items-center gap-2">
-                                                <Icons.Upload size={24} className="text-white" />
-                                                <span className="text-white text-xs font-bold uppercase tracking-wider">Alterar</span>
+                                                <Icons.Upload size={28} className="text-white" />
+                                                <span className="text-white text-sm font-bold">Alterar Logo</span>
                                             </div>
                                         </div>
                                     </label>
@@ -274,20 +239,17 @@
                                     <h1 className="text-2xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-indigo-700 to-violet-700 tracking-tight">
                                         Grupo LABMEDIC
                                     </h1>
-                                    <p className="text-[14px] font-bold text-slate-600 uppercase tracking-widest">Portal de ferramentas para análises</p>
+                                    <p className="text-[14px] font-bold text-slate-600 uppercase tracking-widest">Portal de ferramentas de análises</p>
                                 </div>
                             </div>
                             
                             <div className="hidden sm:flex items-center gap-2 px-4 py-1.5 bg-indigo-50 rounded-full border border-indigo-100 shadow-sm self-center">
                                 <Icons.Sparkles size={14} className="text-indigo-600 fill-indigo-600" />
-                                <span className="text-xs font-bold text-indigo-800">
-                                    Ambiente Seguro
-                                </span>
+                                <span className="text-xs font-bold text-indigo-800">Ambiente Seguro</span>
                             </div>
                         </div>
                     </header>
 
-                    {/* Conteúdo Principal */}
                     <main className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
                         <div className="mb-14 text-center max-w-3xl mx-auto">
                             <h2 className="text-4xl md:text-5xl font-extrabold text-slate-900 mb-6 tracking-tight">
@@ -298,7 +260,6 @@
                             </p>
                         </div>
 
-                        {/* Grid de Cards */}
                         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 pb-10">
                             {applications.map((app) => (
                                 <AppCard key={app.id} app={app} />
@@ -306,7 +267,6 @@
                         </div>
                     </main>
 
-                    {/* Footer */}
                     <footer className="relative z-10 border-t border-slate-200 bg-white py-10 mt-auto">
                         <div className="max-w-7xl mx-auto px-4 flex flex-col md:flex-row items-center justify-between gap-4">
                             <p className="text-slate-400 text-sm font-medium">
