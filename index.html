@@ -58,12 +58,12 @@
         const { useState, useEffect } = React;
 
         const applications = [
-            { id: 1, title: "Gestão de Faturas", url: "https://titulos.vercel.app/", image: "https://images.unsplash.com/photo-1554224155-6726b3ff858f?auto=format&fit=crop&q=80&w=800", gradient: "from-cyan-400 to-blue-600", shadowColor: "shadow-cyan-500/40", category: "Cobrança", insight: "Controle receíveis e reduza a inadimplência com ações inteligentes." },
-            { id: 2, title: "Gestão de Patrimônio", url: "https://patrimonio-ten.vercel.app/", image: "https://images.unsplash.com/photo-1497366216548-37526070297c?auto=format&fit=crop&q=80&w=800", gradient: "from-emerald-400 to-green-600", shadowColor: "shadow-emerald-500/40", category: "Ativos", insight: "Monitore a localização e valorize o capital físico da sua empresa." },
-            { id: 3, title: "Fluxo de Caixa", url: "https://fluxo-de-caixa-sooty.vercel.app/", image: "https://images.unsplash.com/photo-1579621970563-ebec7560ff3e?auto=format&fit=crop&q=80&w=800", gradient: "from-purple-400 to-violet-600", shadowColor: "shadow-purple-500/40", category: "Financeiro", insight: "Visualize entradas e saídas de capital para tomar decisões precisas." },
-            { id: 4, title: "Gestão de Despesas", url: "https://despesas-rho-nine.vercel.app/", image: "https://images.unsplash.com/photo-1517245386807-bb43f82c33c4?auto=format&fit=crop&q=80&w=2940&h=1960&crop=entropy&cs=tinysrgb", gradient: "from-rose-400 to-pink-600", shadowColor: "shadow-rose-500/40", category: "Custos", insight: "Corte gastos desnecessários e identifique gargalos no fluxo de caixa." },
-            { id: 5, title: "Gestão de Comissões", url: "https://comissoes-one.vercel.app/", image: "https://images.unsplash.com/photo-1521737604893-d14cc237f11d?auto=format&fit=crop&q=80&w=800", gradient: "from-orange-400 to-amber-600", shadowColor: "shadow-orange-500/40", category: "RH & Vendas", insight: "Transparência no pagamento de comissões para motivar sua equipe." },
-            { id: 6, title: "Análise de Lucratividade", url: "https://analiselucratividade.vercel.app/", image: "https://images.unsplash.com/photo-1551288049-bebda4e38f71?auto=format&fit=crop&q=80&w=800", gradient: "from-blue-500 to-indigo-600", shadowColor: "shadow-indigo-500/40", category: "Estratégia", insight: "Descubra quais clientes realmente impulsionam seu negócio e ampliam sua margem de lucro." }
+            { id: 1, title: "Gestão de Faturas", url: "https://titulos.vercel.app/", image: "https://images.unsplash.com/photo-1554224155-6726b3ff858f?auto=format&fit=crop&q=80&w=800", gradient: "from-cyan-400 to-blue-600", shadowColor: "shadow-cyan-500/40", category: "Análise de Recebíveis", insight: "Controle receíveis e reduza a inadimplência com ações inteligentes." },
+            { id: 2, title: "Gestão de Patrimônio", url: "https://patrimonio-ten.vercel.app/", image: "https://images.unsplash.com/photo-1497366216548-37526070297c?auto=format&fit=crop&q=80&w=800", gradient: "from-emerald-400 to-green-600", shadowColor: "shadow-emerald-500/40", category: "Otimização dos Ativos", insight: "Monitore a localização e valorize o capital físico da sua empresa." },
+            { id: 3, title: "Fluxo de Caixa", url: "https://fluxo-de-caixa-sooty.vercel.app/", image: "https://images.unsplash.com/photo-1579621970563-ebec7560ff3e?auto=format&fit=crop&q=80&w=800", gradient: "from-purple-400 to-violet-600", shadowColor: "shadow-purple-500/40", category: "Equilíbrio Financeiro", insight: "Visualize entradas e saídas de capital para tomar decisões precisas." },
+            { id: 4, title: "Gestão de Despesas", url: "https://despesas-rho-nine.vercel.app/", image: "https://images.unsplash.com/photo-1517245386807-bb43f82c33c4?auto=format&fit=crop&q=80&w=2940&h=1960&crop=entropy&cs=tinysrgb", gradient: "from-rose-400 to-pink-600", shadowColor: "shadow-rose-500/40", category: "Análise de Custos", insight: "Corte gastos desnecessários e identifique gargalos no fluxo de caixa." },
+            { id: 5, title: "Gestão de Comissões", url: "https://comissoes-one.vercel.app/", image: "https://images.unsplash.com/photo-1521737604893-d14cc237f11d?auto=format&fit=crop&q=80&w=800", gradient: "from-orange-400 to-amber-600", shadowColor: "shadow-orange-500/40", category: "Análise de Vendas", insight: "Transparência no pagamento de comissões para motivar sua equipe." },
+            { id: 6, title: "Análise de Lucratividade", url: "https://analiselucratividade.vercel.app/", image: "https://images.unsplash.com/photo-1551288049-bebda4e38f71?auto=format&fit=crop&q=80&w=800", gradient: "from-blue-500 to-indigo-600", shadowColor: "shadow-indigo-500/40", category: "Estratégias de Lucro", insight: "Descubra quais clientes realmente impulsionam seu negócio e ampliam sua margem de lucro." }
         ];
 
         const AppCard = ({ app }) => {
@@ -87,7 +87,7 @@
                         <p className="text-slate-500 text-sm leading-relaxed mb-6 font-medium">{app.insight}</p>
                         <div className="mt-auto pt-4 border-t border-slate-50">
                             <button className={`w-full py-3 px-4 rounded-xl text-sm font-bold flex items-center justify-center gap-2 transition-all ${isHovered ? `bg-gradient-to-r ${app.gradient} text-white shadow-lg scale-[1.02]` : 'bg-slate-50 text-slate-600 hover:bg-slate-100'}`}>
-                                Acessar Sistema <Icons.ArrowRight size={16} className={`transition-transform ${isHovered ? 'translate-x-1' : ''}`} />
+                                Acessar Módulo <Icons.ArrowRight size={16} className={`transition-transform ${isHovered ? 'translate-x-1' : ''}`} />
                             </button>
                         </div>
                     </div>
@@ -184,8 +184,8 @@
                                     <h1 className="text-xl sm:text-2xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-indigo-700 to-violet-700 tracking-tight">
                                         Grupo LABMEDIC
                                     </h1>
-                                    <p className="text-xs sm:text-sm font-bold text-slate-600 uppercase tracking-widest">
-                                        Portal de ferramentas de análises
+                                    <p className="text-xs sm:text-sm font-bold text-slate-700 uppercase tracking-widest">
+                                        Portal de ferramentas para análises
                                     </p>
                                 </div>
                             </div>
@@ -200,10 +200,10 @@
                     <main className="relative z-10 max-w-7xl mx-auto px-4 py-12">
                         <div className="mb-14 text-center max-w-3xl mx-auto">
                             <h2 className="text-3xl sm:text-4xl md:text-5xl font-extrabold text-slate-900 mb-6 tracking-tight">
-                                Painel de <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-600 to-purple-600">Módulos</span>
+                                Painel de <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-600 to-purple-600">Horizontes</span>
                             </h2>
                             <p className="text-base sm:text-lg text-slate-500 leading-relaxed">
-                                Selecione uma ferramenta abaixo. Cada módulo é carregado independentemente para máxima performance.
+                                Selecione uma ferramenta abaixo. Cada módulo é carregado independentemente para a máxima performance.
                             </p>
                         </div>
                         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8">
@@ -211,9 +211,12 @@
                         </div>
                     </main>
 
-                    <footer className="border-t border-slate-200 bg-white py-10">
-                        <div className="max-w-7xl mx-auto px-4 flex flex-col sm:flex-row items-center justify-between gap-4 text-center sm:text-left">
-                            <p className="text-slate-400 text-sm font-medium">© {new Date().getFullYear()} Nexus Suite. Excelência Visual.</p>
+                    {/* Footer */}
+                    <footer className="relative z-10 border-t border-slate-200 bg-white py-10 mt-auto">
+                        <div className="max-w-7xl mx-auto px-4 flex flex-col md:flex-row items-center justify-between gap-4">
+                            <p className="text-slate-400 text-sm font-medium">
+                                © {new Date().getFullYear()} Nexus Suite. Excelência Visual.
+                            </p>
                             <div className="flex gap-6 text-sm text-slate-500 font-medium">
                                 <span className="cursor-pointer hover:text-indigo-600 transition-colors">Suporte</span>
                                 <span className="cursor-pointer hover:text-indigo-600 transition-colors">Privacidade</span>
