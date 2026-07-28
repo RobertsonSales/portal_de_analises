@@ -89,6 +89,49 @@
             { id: 9, title: "Fluxo de Caixa por Período", url: "https://fluxo-de-caixa-ii.vercel.app/", image: "https://images.unsplash.com/photo-1554224154-26032ffc0d07?auto=format&fit=crop&q=80&w=800", gradient: "from-lime-400 to-emerald-600", shadowColor: "shadow-lime-500/40", category: "FLUXO DE CAIXA POR PERÍODO", insight: "Acompanhe o fluxo de caixa consolidado por período selecionado, com visão analítica e comparativa - Base de dados local => Base para análises.xlsx." }
         ];
 
+        const renderInsight = (insight, gradient) => {
+            // Caso 1: possui base de dados local => destaca o nome do arquivo .xlsx
+            const localDbMatch = insight.match(/^(.*?)-\s*Base de dados local\s*=>\s*(.+?)\.?\s*$/i);
+            if (localDbMatch) {
+                const prefix = localDbMatch[1].trim();
+                const dbName = localDbMatch[2].replace(/\.$/, '').trim();
+                return (
+                    <>
+                        <span>{prefix}</span>
+                        <span className="block mt-3">
+                            <span className="flex items-center gap-1.5 text-[10px] font-bold uppercase tracking-wider text-slate-400 dark:text-slate-500 mb-1.5">
+                                <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><ellipse cx="12" cy="5" rx="9" ry="3"/><path d="M3 5v14a9 3 0 0 0 18 0V5"/><path d="M3 12a9 3 0 0 0 18 0"/></svg>
+                                Base de dados local
+                            </span>
+                            <span className={`relative block rounded-lg overflow-hidden bg-slate-50 dark:bg-slate-900/50 border border-slate-200/70 dark:border-slate-700/70`}>
+                                <span className={`absolute left-0 top-0 bottom-0 w-1 bg-gradient-to-b ${gradient}`}></span>
+                                <span className={`block pl-3 pr-3 py-2 text-xs font-bold bg-gradient-to-r ${gradient} bg-clip-text text-transparent break-words`} style={{ WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent' }}>
+                                    {dbName}
+                                </span>
+                            </span>
+                        </span>
+                    </>
+                );
+            }
+            // Caso 2: sem base de dados local => rótulo neutro
+            const noDbMatch = insight.match(/^(.*?)-\s*Sem base de dados local\.?\s*$/i);
+            if (noDbMatch) {
+                const prefix = noDbMatch[1].trim();
+                return (
+                    <>
+                        <span>{prefix}</span>
+                        <span className="block mt-3">
+                            <span className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-md text-[10px] font-bold uppercase tracking-wider bg-slate-100 text-slate-500 dark:bg-slate-700/60 dark:text-slate-400 border border-slate-200 dark:border-slate-600">
+                                <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><circle cx="12" cy="12" r="10"/><line x1="4.93" y1="4.93" x2="19.07" y2="19.07"/></svg>
+                                Sem base de dados local
+                            </span>
+                        </span>
+                    </>
+                );
+            }
+            return insight;
+        };
+
         const AppCard = ({ app }) => {
             const [isHovered, setIsHovered] = useState(false);
             return (
@@ -107,7 +150,7 @@
                             <h3 className={`text-xl font-bold text-slate-800 dark:text-slate-100 group-hover:text-transparent group-hover:bg-clip-text group-hover:bg-gradient-to-r ${app.gradient} transition-all duration-300`}>{app.title}</h3>
                             <Icons.ExternalLink size={18} className="text-slate-300 group-hover:text-slate-600 dark:text-slate-600 dark:group-hover:text-slate-300 transition-colors" />
                         </div>
-                        <p className="text-slate-500 dark:text-slate-400 text-sm leading-relaxed mb-6 font-medium">{app.insight}</p>
+                        <div className="text-slate-500 dark:text-slate-400 text-sm leading-relaxed mb-6 font-medium">{renderInsight(app.insight, app.gradient)}</div>
                         <div className="mt-auto pt-4 border-t border-slate-50 dark:border-slate-700">
                             <button className={`w-full py-3 px-4 rounded-xl text-sm font-bold flex items-center justify-center gap-2 transition-all ${isHovered ? `bg-gradient-to-r ${app.gradient} text-white shadow-lg scale-[1.02]` : 'bg-slate-50 text-slate-600 hover:bg-slate-100 dark:bg-slate-700 dark:text-slate-200 dark:hover:bg-slate-600'}`}>
                                 Acessar Módulo <Icons.ArrowRight size={16} className={`transition-transform ${isHovered ? 'translate-x-1' : ''}`} />
@@ -274,6 +317,7 @@
         const root = ReactDOM.createRoot(document.getElementById('root'));
         root.render(<App />);
     </script>
+<script type="module" src="https://static.cloudflareinsights.com/beacon.min.js/v4513226cdae34746b4dedf0b4dfa099e1781791509496" integrity="sha512-ZE9pZaUXND66v380QUtch/5sE9tPFh2zg45pR2PB0CVkCtOREv2AJKkSidISWkysEuQ0EH8faUU5du78bx87UQ==" data-cf-beacon='{"version":"2024.11.0","token":"4edd5f8ec12a48cfa682ab8261b80a79"}' crossorigin="anonymous"></script>
 <script type="module" src="https://static.cloudflareinsights.com/beacon.min.js/v4513226cdae34746b4dedf0b4dfa099e1781791509496" integrity="sha512-ZE9pZaUXND66v380QUtch/5sE9tPFh2zg45pR2PB0CVkCtOREv2AJKkSidISWkysEuQ0EH8faUU5du78bx87UQ==" data-cf-beacon='{"version":"2024.11.0","token":"4edd5f8ec12a48cfa682ab8261b80a79"}' crossorigin="anonymous"></script>
 <script type="module" src="https://static.cloudflareinsights.com/beacon.min.js/v4513226cdae34746b4dedf0b4dfa099e1781791509496" integrity="sha512-ZE9pZaUXND66v380QUtch/5sE9tPFh2zg45pR2PB0CVkCtOREv2AJKkSidISWkysEuQ0EH8faUU5du78bx87UQ==" data-cf-beacon='{"version":"2024.11.0","token":"4edd5f8ec12a48cfa682ab8261b80a79"}' crossorigin="anonymous"></script>
 <script type="module" src="https://static.cloudflareinsights.com/beacon.min.js/v4513226cdae34746b4dedf0b4dfa099e1781791509496" integrity="sha512-ZE9pZaUXND66v380QUtch/5sE9tPFh2zg45pR2PB0CVkCtOREv2AJKkSidISWkysEuQ0EH8faUU5du78bx87UQ==" data-cf-beacon='{"version":"2024.11.0","token":"4edd5f8ec12a48cfa682ab8261b80a79"}' crossorigin="anonymous"></script>
