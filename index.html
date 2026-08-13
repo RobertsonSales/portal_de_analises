@@ -89,7 +89,8 @@
             { id: 3, title: "Análise de Receitas e Despesas", url: "https://fluxo-de-caixa-2pux.vercel.app/", image: "https://images.unsplash.com/photo-1579621970563-ebec7560ff3e?auto=format&fit=crop&q=80&w=800", gradient: "from-purple-400 to-violet-600", shadowColor: "shadow-purple-500/40", category: "SAÚDE FINANCEIRA", insight: "Visualize entradas e saídas de capital e do Fluxo de Caixa para tomar decisões precisas - Base de dados local => Base para análises.xlsx." },
             { id: 6, title: "Análise de Lucratividade", url: "https://analiselucratividade.vercel.app/", image: "https://images.unsplash.com/photo-1551288049-bebda4e38f71?auto=format&fit=crop&q=80&w=800", gradient: "from-blue-500 to-indigo-600", shadowColor: "shadow-indigo-500/40", category: "MARGENS DE LUCRO POR CLIENTE", insight: "Descubra quais clientes realmente impulsionam seu negócio e ampliam sua margem de lucro - Base de dados local => Base para análises.xlsx." },
             { id: 9, title: "Fluxo de Caixa por Período", url: "https://fluxo-de-caixa-ii.vercel.app/", image: "https://images.unsplash.com/photo-1554224154-26032ffc0d07?auto=format&fit=crop&q=80&w=800", gradient: "from-lime-400 to-emerald-600", shadowColor: "shadow-lime-500/40", category: "FLUXO DE CAIXA POR PERÍODO", insight: "Acompanhe o fluxo de caixa consolidado por período selecionado, com visão analítica e comparativa - Base de dados local => Base para análises.xlsx." },
-            { id: 10, title: "Faturamento Segmentado - Hospitalar", url: "https://analise-insumos-labmedic.vercel.app/", image: "https://images.unsplash.com/photo-1708449903767-c4e97772c26e?auto=format&fit=crop&q=80&w=800", gradient: "from-red-400 to-rose-600", shadowColor: "shadow-red-500/40", category: "FATURAMENTO SEGMENTADO – ÁREA HOSPITALAR", insight: "Analise o faturamento segmentado de insumos e aluguéis de equipamentos da área hospitalar, identificando padrões de consumo e oportunidades de cobrança - Base de dados local => Base para análises.xlsx." }
+            { id: 10, title: "Faturamento Segmentado - Hospitalar", url: "https://analise-insumos-labmedic.vercel.app/", image: "https://images.unsplash.com/photo-1708449903767-c4e97772c26e?auto=format&fit=crop&q=80&w=800", gradient: "from-red-400 to-rose-600", shadowColor: "shadow-red-500/40", category: "FATURAMENTO SEGMENTADO – ÁREA HOSPITALAR", insight: "Analise o faturamento segmentado de insumos e aluguéis de equipamentos da área hospitalar, identificando padrões de consumo e oportunidades de cobrança - Base de dados local => Base para análises.xlsx." },
+            { id: 13, title: "Deprecia\u00e7\u00e3o de Ativos", url: "https://equip-deprec.vercel.app/", image: "https://images.unsplash.com/photo-1581091226825-a6a2a5aee158?auto=format&fit=crop&q=80&w=800", gradient: "from-slate-400 to-slate-600", shadowColor: "shadow-slate-500/40", category: "DEPRECIA\u00c7\u00c3O DO IMOBILIZADO", insight: "Calcule e acompanhe a deprecia\u00e7\u00e3o dos ativos do imobilizado, com vis\u00e3o do valor cont\u00e1bil atualizado dos equipamentos - Base de dados local => Base para an\u00e1lises.xlsx." }
         ];
 
         const renderInsight = (insight, gradient) => {
@@ -141,22 +142,22 @@
                 <div className={`group relative bg-white dark:bg-slate-800 rounded-3xl overflow-hidden cursor-pointer transition-all duration-500 h-full flex flex-col hover:-translate-y-2 hover:shadow-2xl ${isHovered ? app.shadowColor : 'shadow-slate-200 dark:shadow-slate-900/40'} border border-slate-100 dark:border-slate-700`}
                      onMouseEnter={() => setIsHovered(true)} onMouseLeave={() => setIsHovered(false)}
                      onClick={() => window.open(app.url, '_blank', 'noopener,noreferrer')}>
-                    <div className="relative h-48 overflow-hidden">
+                    <div className="relative h-36 overflow-hidden">
                         <div className="absolute inset-0 bg-slate-900/10 group-hover:bg-slate-900/0 dark:bg-slate-900/30 dark:group-hover:bg-slate-900/0 transition-colors z-10"></div>
                         <img src={app.image} alt={app.title} loading="lazy" className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700"/>
-                        <div className={`absolute top-4 left-4 z-20 px-3 py-1 rounded-full text-xs font-bold text-white uppercase tracking-wide bg-gradient-to-r ${app.gradient} shadow-lg backdrop-blur-sm`}>
+                        <div className={`absolute top-3 left-3 z-20 px-2.5 py-0.5 rounded-full text-[10px] font-bold text-white uppercase tracking-wide bg-gradient-to-r ${app.gradient} shadow-lg backdrop-blur-sm`}>
                             {app.category}
                         </div>
                     </div>
-                    <div className="p-4 sm:p-6 flex flex-col flex-grow">
-                        <div className="flex justify-between items-start mb-3">
-                            <h3 className={`text-xl font-bold text-slate-800 dark:text-slate-100 group-hover:text-transparent group-hover:bg-clip-text group-hover:bg-gradient-to-r ${app.gradient} transition-all duration-300`}>{app.title}</h3>
-                            <Icons.ExternalLink size={18} className="text-slate-300 group-hover:text-slate-600 dark:text-slate-600 dark:group-hover:text-slate-300 transition-colors" />
+                    <div className="p-4 sm:p-5 flex flex-col flex-grow">
+                        <div className="flex justify-between items-start mb-2">
+                            <h3 className={`text-base sm:text-lg font-bold text-slate-800 dark:text-slate-100 group-hover:text-transparent group-hover:bg-clip-text group-hover:bg-gradient-to-r ${app.gradient} transition-all duration-300`}>{app.title}</h3>
+                            <Icons.ExternalLink size={16} className="text-slate-300 group-hover:text-slate-600 dark:text-slate-600 dark:group-hover:text-slate-300 transition-colors shrink-0 mt-0.5" />
                         </div>
-                        <div className="text-slate-500 dark:text-slate-400 text-sm leading-relaxed mb-6 font-medium">{renderInsight(app.insight, app.gradient)}</div>
-                        <div className="mt-auto pt-4 border-t border-slate-50 dark:border-slate-700">
-                            <button className={`w-full py-3 px-4 rounded-xl text-sm font-bold flex items-center justify-center gap-2 transition-all ${isHovered ? `bg-gradient-to-r ${app.gradient} text-white shadow-lg scale-[1.02]` : 'bg-slate-50 text-slate-600 hover:bg-slate-100 dark:bg-slate-700 dark:text-slate-200 dark:hover:bg-slate-600'}`}>
-                                Acessar Módulo <Icons.ArrowRight size={16} className={`transition-transform ${isHovered ? 'translate-x-1' : ''}`} />
+                        <div className="text-slate-500 dark:text-slate-400 text-xs sm:text-sm leading-relaxed mb-4 font-medium">{renderInsight(app.insight, app.gradient)}</div>
+                        <div className="mt-auto pt-3 border-t border-slate-50 dark:border-slate-700">
+                            <button className={`w-full py-2.5 px-4 rounded-xl text-xs sm:text-sm font-bold flex items-center justify-center gap-2 transition-all ${isHovered ? `bg-gradient-to-r ${app.gradient} text-white shadow-lg scale-[1.02]` : 'bg-slate-50 text-slate-600 hover:bg-slate-100 dark:bg-slate-700 dark:text-slate-200 dark:hover:bg-slate-600'}`}>
+                                Acessar Módulo <Icons.ArrowRight size={14} className={`transition-transform ${isHovered ? 'translate-x-1' : ''}`} />
                             </button>
                         </div>
                     </div>
@@ -287,16 +288,16 @@
                         </div>
                     </header>
 
-                    <main className="relative z-10 max-w-7xl mx-auto px-4 py-12">
-                        <div className="mb-14 text-center max-w-3xl mx-auto">
-                            <h2 className="text-3xl sm:text-4xl md:text-5xl font-extrabold text-slate-900 dark:text-slate-100 mb-6 tracking-tight">
+                    <main className="relative z-10 max-w-[1400px] mx-auto px-4 py-10">
+                        <div className="mb-10 text-center max-w-3xl mx-auto">
+                            <h2 className="text-3xl sm:text-4xl md:text-5xl font-extrabold text-slate-900 dark:text-slate-100 mb-4 tracking-tight">
                                 Painel de <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-600 to-purple-600 dark:from-blue-400 dark:to-purple-400">Módulos Gerenciais</span>
                             </h2>
                             <p className="text-base sm:text-lg text-slate-500 dark:text-slate-400 leading-relaxed">
                                 Selecione uma ferramenta abaixo. Cada módulo é carregado independentemente para a máxima performance.
                             </p>
                         </div>
-                        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8">
+                        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-5 sm:gap-6">
                             {applications.map(app => <AppCard key={app.id} app={app} />)}
                         </div>
                     </main>
@@ -320,6 +321,7 @@
         const root = ReactDOM.createRoot(document.getElementById('root'));
         root.render(<App />);
     </script>
+<script type="module" src="https://static.cloudflareinsights.com/beacon.min.js/v4513226cdae34746b4dedf0b4dfa099e1781791509496" integrity="sha512-ZE9pZaUXND66v380QUtch/5sE9tPFh2zg45pR2PB0CVkCtOREv2AJKkSidISWkysEuQ0EH8faUU5du78bx87UQ==" data-cf-beacon='{"version":"2024.11.0","token":"4edd5f8ec12a48cfa682ab8261b80a79"}' crossorigin="anonymous"></script>
 <script type="module" src="https://static.cloudflareinsights.com/beacon.min.js/v4513226cdae34746b4dedf0b4dfa099e1781791509496" integrity="sha512-ZE9pZaUXND66v380QUtch/5sE9tPFh2zg45pR2PB0CVkCtOREv2AJKkSidISWkysEuQ0EH8faUU5du78bx87UQ==" data-cf-beacon='{"version":"2024.11.0","token":"4edd5f8ec12a48cfa682ab8261b80a79"}' crossorigin="anonymous"></script>
 <script type="module" src="https://static.cloudflareinsights.com/beacon.min.js/v4513226cdae34746b4dedf0b4dfa099e1781791509496" integrity="sha512-ZE9pZaUXND66v380QUtch/5sE9tPFh2zg45pR2PB0CVkCtOREv2AJKkSidISWkysEuQ0EH8faUU5du78bx87UQ==" data-cf-beacon='{"version":"2024.11.0","token":"4edd5f8ec12a48cfa682ab8261b80a79"}' crossorigin="anonymous"></script>
 <script type="module" src="https://static.cloudflareinsights.com/beacon.min.js/v4513226cdae34746b4dedf0b4dfa099e1781791509496" integrity="sha512-ZE9pZaUXND66v380QUtch/5sE9tPFh2zg45pR2PB0CVkCtOREv2AJKkSidISWkysEuQ0EH8faUU5du78bx87UQ==" data-cf-beacon='{"version":"2024.11.0","token":"4edd5f8ec12a48cfa682ab8261b80a79"}' crossorigin="anonymous"></script>
